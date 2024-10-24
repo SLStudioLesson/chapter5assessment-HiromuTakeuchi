@@ -3,10 +3,13 @@ package com.taskapp.ui;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
+import com.taskapp.exception.AppException;
 import com.taskapp.logic.TaskLogic;
 import com.taskapp.logic.UserLogic;
 import com.taskapp.model.User;
+
 
 public class TaskUI {
     private final BufferedReader reader;
@@ -16,6 +19,8 @@ public class TaskUI {
     private final TaskLogic taskLogic;
 
     private User loginUser;
+
+    private User loggedInUser;
 
     public TaskUI() {
         reader = new BufferedReader(new InputStreamReader(System.in));
@@ -43,47 +48,36 @@ public class TaskUI {
      * @see #selectSubMenu()
      * @see #inputNewInformation()
      */
-    public void displayMenu() {
-        System.out.println("タスク管理アプリケーションにようこそ!!");
-
-        // メインメニュー
-        boolean flg = true;
-        while (flg) {
-            try {
-                System.out.println("以下1~3のメニューから好きな選択肢を選んでください。");
-                System.out.println("1. タスク一覧, 2. タスク新規登録, 3. ログアウト");
-                System.out.print("選択肢：");
-                String selectMenu = reader.readLine();
-
-                System.out.println();
-
-                switch (selectMenu) {
-                    case "1":
-                        break;
-                    case "2":
-                        break;
-                    case "3":
-                        System.out.println("ログアウトしました。");
-                        flg = false;
-                        break;
-                    default:
-                        System.out.println("選択肢が誤っています。1~3の中から選択してください。");
-                        break;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println();
-        }
-    }
-
+    
     /**
      * ユーザーからのログイン情報を受け取り、ログイン処理を行います。
      *
      * @see com.taskapp.logic.UserLogic#login(String, String)
      */
-    // public void inputLogin() {
-    // }
+    public void inputLogin() {
+        boolean loginSuccessful = false;
+        while (!loginSuccessful) {
+            try {
+                System.out.print("メールアドレスを入力してください：");
+                String email = reader.readLine();
+    
+                System.out.print("パスワードを入力してください：");
+                String password = reader.readLine();
+    
+                try {
+                    // UserLogic を使用してログイン
+                    loginUser = userLogic.login(email, password);
+                    System.out.println("ユーザー名：" + loginUser.getName() + "でログインしました。");
+                    loginSuccessful = true; // ログイン成功
+                } catch (AppException e) {
+                    // ログイン失敗時のメッセージ
+                    System.out.println("既に登録されているメールアドレス、パスワードを入力してください");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * ユーザーからの新規タスク情報を受け取り、新規タスクを登録します。
@@ -91,9 +85,7 @@ public class TaskUI {
      * @see #isNumeric(String)
      * @see com.taskapp.logic.TaskLogic#save(int, String, int, User)
      */
-    // public void inputNewInformation() {
-    // }
-
+    
     /**
      * タスクのステータス変更または削除を選択するサブメニューを表示します。
      *

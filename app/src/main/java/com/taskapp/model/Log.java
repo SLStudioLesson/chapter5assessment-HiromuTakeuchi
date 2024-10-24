@@ -7,12 +7,26 @@ public class Log {
     private int changeUserCode;
     private int status;
     private LocalDate changeDate;
+    private int changeUserCode2;
+    private int changeUserCode3;
 
-    public Log(int taskCode, int changeUserCode, int status, LocalDate changeDate) {
+    /**
+     * @param taskCode
+     * @param changeUserCode
+     * @param status
+     * @param string
+     */
+    public Log(int taskCode, int changeUserCode, int status, String string) {
         this.taskCode = taskCode;
+        changeUserCode3 = changeUserCode;
+        changeUserCode2 = changeUserCode;
         this.changeUserCode = changeUserCode;
         this.status = status;
-        this.changeDate = changeDate;
+        this.changeDate = string;
+    }
+
+    public Log(int taskCode2, int id, int status2, String string) {
+        //TODO Auto-generated constructor stub
     }
 
     public int getTaskCode() {
@@ -52,5 +66,4 @@ public class Log {
 			return false;
 		return true;
 	}
-
- }
+}

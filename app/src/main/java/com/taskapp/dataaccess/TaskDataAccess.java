@@ -1,5 +1,17 @@
 package com.taskapp.dataaccess;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.taskapp.model.Task;
+
 public class TaskDataAccess {
 
     private final String filePath;
@@ -27,26 +39,44 @@ public class TaskDataAccess {
      * @see com.taskapp.dataaccess.UserDataAccess#findByCode(int)
      * @return タスクのリスト
      */
-    // public List<Task> findAll() {
-    //     try () {
-
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    //     return null;
-    // }
-
+    public List<Task> findAll() {
+        List<Task> taskList = new ArrayList<>();
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("tasks.csv");
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            br.readLine(); // ヘッダー行を読み飛ばす
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                Task task = new Task(
+                    Integer.parseInt(data[0]),  // タスクコード
+                    data[1],                    // タスク名
+                    Integer.parseInt(data[2]),  // ステータス
+                    Integer.parseInt(data[3])   // 担当者コード
+                );
+                taskList.add(task);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return taskList;
+    }
+    
     /**
      * タスクをCSVに保存します。
      * @param task 保存するタスク
      */
-    // public void save(Task task) {
-    //     try () {
+    public void save(Task task) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/tasks.csv", true))) {
+            String taskData = String.format("%d,%s,%d,%d", task.getCode(), task.getName(), task.getStatus(), task.getRepUserCode());
+            bw.write(taskData);
+            bw.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
 
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+    
 
     /**
      * コードを基にタスクデータを1件取得します。
@@ -93,4 +123,3 @@ public class TaskDataAccess {
      */
     // private String createLine(Task task) {
     // }
-}

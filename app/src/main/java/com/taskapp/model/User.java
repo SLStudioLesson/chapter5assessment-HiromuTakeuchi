@@ -1,61 +1,24 @@
 package com.taskapp.model;
 
 public class User {
-    private int code;
-    private String name;
-    private String email;
-    private String password;
+    private int id;      // ユーザーのID
+    private String name; // ユーザー名
 
-    public User(int code, String name, String email, String password) {
-        this.code = code;
+    // コンストラクタ
+    public User(int id, String name) {
+        this.id = id;
         this.name = name;
-        this.email = email;
-        this.password = password;
     }
 
-    public int getCode() {
-        return this.code;
+    // IDを取得するメソッド
+    public int getId() {
+        return id; // ユーザーのIDを返す
     }
 
+    // ユーザー名を取得するメソッド
     public String getName() {
-        return this.name;
+        return name; // ユーザー名を返す
     }
 
-    public String getEmail() {
-        return this.email;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + code;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (code != other.code)
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		return true;
-	}
-
-    
+    // 追加のメソッド（必要に応じて）
 }

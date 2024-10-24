@@ -4,56 +4,28 @@ public class Task {
     private int code;
     private String name;
     private int status;
-    private User repUser;
+    private int repUserCode;
 
-    public Task(int code, String name, int status, User repUser) {
+    public Task(int code, String name, int status, int repUserCode) {
         this.code = code;
         this.name = name;
         this.status = status;
-        this.repUser = repUser;
+        this.repUserCode = repUserCode;
     }
 
     public int getCode() {
-        return this.code;
+        return code;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public int getStatus() {
-        return this.status;
+        return status;
     }
 
-    public User getRepUser() {
-        return this.repUser;
+    public int getRepUserCode() {
+        return repUserCode;
     }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + code;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Task other = (Task) obj;
-		if (code != other.code)
-			return false;
-		return true;
-	}
-
-    
 }
