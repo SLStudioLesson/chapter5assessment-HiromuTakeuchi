@@ -27,15 +27,20 @@ public class LogDataAccess {
      *
      * @param log 保存するログ
      */
-    public void save(Log log) {
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/logs.csv", true))) {
-        String logData = String.format("%d,%d,%d,%s", log.getTaskCode(), log.getChangeUserCode(), log.getStatus(), log.getChangeDate());
-        bw.write(logData);
-        bw.newLine();
-    } catch (IOException e) {
-        e.printStackTrace();
+    public void save(int taskCode, int changeUserCode, int status, String changeDate) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs.csv", true))) {
+            writer.write(taskCode + "," + changeUserCode + "," + status + "," + changeDate);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
+
+    public void save(Log newLog) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+    
 
 
     /**

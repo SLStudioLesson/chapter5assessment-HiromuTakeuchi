@@ -101,6 +101,16 @@ public class TaskLogic {
         Log newLog = new Log(taskCode, loginUser.getId(), 0, LocalDate.now().toString());
         logDataAccess.save(newLog); // logs.csv に保存
     }
+
+    public void save(String taskCode, String taskName, String userCode, User loggedInUser) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+
+    public void save(String taskCode, String taskName, String string, String userCode, User loggedInUser) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
 }
     /**
      * タスクのステータスを変更します。

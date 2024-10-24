@@ -65,14 +65,18 @@ public class TaskDataAccess {
      * タスクをCSVに保存します。
      * @param task 保存するタスク
      */
-    public void save(Task task) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/tasks.csv", true))) {
-            String taskData = String.format("%d,%s,%d,%d", task.getCode(), task.getName(), task.getStatus(), task.getRepUserCode());
-            bw.write(taskData);
-            bw.newLine();
+    public void save(int taskCode, String taskName, int status, int userCode) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("tasks.csv", true))) {
+            writer.write(taskCode + "," + taskName + "," + status + "," + userCode);
+            writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void save(Task newTask) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 }
 
